@@ -1,3 +1,48 @@
+# 🏀 Basketball Fundamentals CLI
+
+<div align="center">
+
+![Python](https://img.shields.io/badge/Python-3.8+-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![Topic](https://img.shields.io/badge/Topic-Sports-FF5E00?style=for-the-badge&logo=nba&logoColor=white)
+![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
+
+**터미널에서 만나는 농구의 모든 것.**<br>
+역사, 규칙, 포지션 정보를 인터랙티브한 CLI 환경에서 확인하세요.
+
+---
+</div>
+
+## ✨ Features
+
+- **Interactive Menu**: 사용자가 원하는 정보를 직접 선택하여 탐색
+- **Typewriter Effect**: 타자기 효과(`slow_print`)를 통한 몰입감 있는 텍스트 출력
+- **Structured Data**: `Class` 기반의 깔끔한 데이터 구조
+
+## 🚀 Preview
+
+```bash
+------------------------------
+어떤 정보를 확인하시겠습니까?
+1. 농구란 무엇인가? (소개)
+2. 포지션 설명
+3. 주요 규칙
+4. 역사
+5. 종료
+------------------------------
+선택(번호 입력): 1
+
+==================================================
+          🏀  BASKETBALL INFO  🏀
+==================================================
+농구는 각 5명으로 구성된 두 팀이
+코트(28m x 15m) 위에서... (타자치는 효과 중)
+```
+
+## 💻 Source Code
+
+파이썬의 **객체 지향(OOP)** 스타일로 작성되어, 유지보수와 확장이 용이합니다.
+
+```python
 import time
 import sys
 
@@ -11,95 +56,43 @@ class Basketball:
         self.players_per_team = 5
         self.shot_clock = "24초"
         
+        # 포지션 데이터 구조화
         self.positions = {
-            "PG": {"name": "포인트 가드 (Point Guard)", "role": "코트의 야전사령관, 경기 조율 및 패스 공급"},
-            "SG": {"name": "슈팅 가드 (Shooting Guard)", "role": "주득점원, 3점슛과 돌파 능력"},
-            "SF": {"name": "스몰 포워드 (Small Forward)", "role": "내외곽을 가리지 않는 다재다능한 득점원"},
-            "PF": {"name": "파워 포워드 (Power Forward)", "role": "골밑 수비, 리바운드, 중거리 슛"},
-            "C":  {"name": "센터 (Center)", "role": "팀의 기둥, 골밑 장악, 리바운드 및 블록슛"}
+            "PG": {"name": "포인트 가드 (Point Guard)", "role": "코트의 야전사령관, 경기 조율"},
+            "SG": {"name": "슈팅 가드 (Shooting Guard)", "role": "주득점원, 3점슛과 돌파"},
+            "SF": {"name": "스몰 포워드 (Small Forward)", "role": "다재다능한 득점원"},
+            "PF": {"name": "파워 포워드 (Power Forward)", "role": "골밑 수비 및 중거리 슛"},
+            "C":  {"name": "센터 (Center)", "role": "팀의 기둥, 골밑 장악"}
         }
-        
-        self.milestones = [
-            (1891, "제임스 네이스미스 박사가 창안 (복숭아 바구니 사용)"),
-            (1936, "베를린 올림픽 정식 종목 채택"),
-            (1946, "NBA (미국 프로 농구) 출범"),
-            (1992, "바르셀로나 올림픽 '림 짐(Dream Team)' 결성, 세계적 인기 폭발")
-        ]
+
+    # ... (생략된 메서드들)
 
     def slow_print(self, text, delay=0.03):
-        """텍스트를 타자기처럼 한 글자씩 출력하는 효과"""
+        """텍스트를 타자기처럼 한 글자씩 출력하는 심미적 효과"""
         for char in text:
             sys.stdout.write(char)
             sys.stdout.flush()
             time.sleep(delay)
         print()
 
-    def show_intro(self):
-        print("\n" + "="*50)
-        print("          🏀  BASKETBALL INFO  🏀")
-        print("="*50)
-        intro_text = (
-            f"농구는 각 {self.players_per_team}명으로 구성된 두 팀이\n"
-            f"코트({self.court_size}) 위에서 상대방의 바스켓({self.rim_height})에 공을 넣어\n"
-            f"점수를 겨루는 구기 종목입니다.\n"
-            "빠른 공수 전환과 역동적인 움직임이 특징입니다."
-        )
-        self.slow_print(intro_text)
-
-    def show_rules(self):
-        print("\n[ 📋 기본 규칙 ]")
-        rules = [
-            f"1. 공격 제한 시간: {self.shot_clock} (샷 클락)",
-            "2. 득점: 자유투 1점, 필드골 2점, 3점 라인 밖 3점",
-            "3. 드리블: 공을 소유한 채 3걸음 이상 걸으면 안 됨 (트래블링)",
-            "4. 반칙: 선수 간의 부당한 신체 접촉 금지 (5반칙 퇴장)"
-        ]
-        for rule in rules:
-            print(f"- {rule}")
-            time.sleep(0.5)
-
-    def show_positions(self):
-        print("\n[ ⛹️ 포지션 소개 ]")
-        for code, info in self.positions.items():
-            print(f"[{code}] {info['name']}")
-            print(f"    └─ {info['role']}")
-            time.sleep(0.3)
-            
-    def show_history(self):
-        print("\n[ 📜 간략한 역사 ]")
-        for year, event in self.milestones:
-            print(f"{year}년: {event}")
-            time.sleep(0.4)
-
-def main():
-    bball = Basketball()
-    
-    while True:
-        print("\n" + "-"*30)
-        print("어떤 정보를 확인하시겠습니까?")
-        print("1. 농구란 무엇인가? (소개)")
-        print("2. 포지션 설명")
-        print("3. 주요 규칙")
-        print("4. 역사")
-        print("5. 종료")
-        print("-"*30)
-        
-        choice = input("선택(번호 입력): ")
-        
-        if choice == '1':
-            bball.show_intro()
-        elif choice == '2':
-            bball.show_positions()
-        elif choice == '3':
-            bball.show_rules()
-        elif choice == '4':
-            bball.show_history()
-        elif choice == '5':
-            print("프로그램을 종료합니다. 즐거운 농구 되세요! 🏀")
-            break
-        else:
-            print("올바른 번호를 입력해주세요.")
-
 if __name__ == "__main__":
-    main()
+    # 인스턴스 생성 및 실행
+    game = Basketball()
+    game.main()
+```
 
+## 🛠️ How to Run
+
+1. **Repository**를 클론합니다.
+2. 터미널에서 아래 명령어를 실행하세요.
+
+```bash
+cd basketball_fundamentals
+python basketball_info.py
+```
+
+<br>
+
+<div align="center">
+    <strong>Code is Poetry. Court is Life.</strong>
+</div>
